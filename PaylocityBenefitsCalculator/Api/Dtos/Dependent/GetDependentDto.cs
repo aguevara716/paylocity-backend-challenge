@@ -2,7 +2,7 @@
 
 namespace Api.Dtos.Dependent;
 
-public class GetDependentDto
+public class GetDependentDto : IDto
 {
     public int Id { get; set; }
     public string? FirstName { get; set; }

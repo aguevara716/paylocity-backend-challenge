@@ -2,7 +2,7 @@
 
 namespace Api.Dtos.Employee;
 
-public class GetEmployeeDto
+public class GetEmployeeDto : IDto
 {
     public int Id { get; set; }
     public string? FirstName { get; set; }
