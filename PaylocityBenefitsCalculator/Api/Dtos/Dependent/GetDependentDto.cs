@@ -2,11 +2,17 @@
 
 namespace Api.Dtos.Dependent;
 
-public class GetDependentDto : IDto
+public abstract class DependentDtoBase : IDto
 {
-    public int Id { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public DateTime DateOfBirth { get; set; }
     public Relationship Relationship { get; set; }
 }
+
+public class GetDependentDto : DependentDtoBase
+{
+    public int Id { get; set; }
+}
+
+public class PostDependentDto : DependentDtoBase { }
