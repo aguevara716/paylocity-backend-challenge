@@ -1,5 +1,4 @@
 ﻿using Api.Models;
-using Api.Repositories;
 using Api.Services;
 
 namespace Api.Validators;
