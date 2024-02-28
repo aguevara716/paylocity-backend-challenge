@@ -14,4 +14,16 @@
   <ItemGroup>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Initialization\" />
+    <None Remove="Services\" />
+    <None Remove="Repositories\" />
+    <None Remove="Mappers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Initialization\" />
+    <Folder Include="Services\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Mappers\" />
+  </ItemGroup>
 </Project>
