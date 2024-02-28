@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Api.Dtos.Dependent;
 using Api.Dtos.Employee;
@@ -11,6 +14,7 @@ namespace ApiTests.IntegrationTests;
 
 public class EmployeeIntegrationTests : IntegrationTest
 {
+    // GET
     [Fact]
     public async Task WhenAskedForAllEmployees_ShouldReturnAllEmployees()
     {
@@ -84,7 +88,6 @@ public class EmployeeIntegrationTests : IntegrationTest
     }
 
     [Fact]
-    //task: make test pass
     public async Task WhenAskedForAnEmployee_ShouldReturnCorrectEmployee()
     {
         var response = await HttpClient.GetAsync("/api/v1/employees/1");
@@ -100,11 +103,67 @@ public class EmployeeIntegrationTests : IntegrationTest
     }
     
     [Fact]
-    //task: make test pass
     public async Task WhenAskedForANonexistentEmployee_ShouldReturn404()
     {
         var response = await HttpClient.GetAsync($"/api/v1/employees/{int.MinValue}");
         await response.ShouldReturn(HttpStatusCode.NotFound);
+    }
+
+    // POST
+    [Fact]
+    public async Task Post_Should_CreateEmployeeIfValidationPasses()
+    {
+        var employee = new CreateEmployeeDto
+        {
+            DateOfBirth = DateTime.Today,
+            Dependents = new List<CreateDependentDto>(),
+            FirstName = "FN",
+            LastName = "LN",
+            Salary = 0m
+        };
+        var employeeJson = JsonSerializer.Serialize(employee);
+
+        var response = await HttpClient.PostAsync("/api/v1/employees", new StringContent(employeeJson, Encoding.UTF8, "application/json"));
+
+        await response.ShouldReturn(HttpStatusCode.OK);
+    }
+
+    [Theory]
+    [InlineData(Relationship.DomesticPartner, Relationship.DomesticPartner)]
+    [InlineData(Relationship.DomesticPartner, Relationship.Spouse)]
+    [InlineData(Relationship.Spouse, Relationship.Spouse)]
+    [InlineData(Relationship.Spouse, Relationship.DomesticPartner)]
+    public async Task Post_Should_NotCreateEmployeeIfValidationFails(Relationship r1, Relationship r2)
+    {
+        var employee = new CreateEmployeeDto
+        {
+            DateOfBirth = DateTime.Today,
+            Dependents = new List<CreateDependentDto>()
+            {
+                new()
+                {
+                    DateOfBirth = DateTime.Today,
+                    FirstName = "FN",
+                    LastName = "LN",
+                    Relationship = r1
+                },
+                new()
+                {
+                    DateOfBirth = DateTime.Today,
+                    FirstName = "FN",
+                    LastName = "LN",
+                    Relationship = r2
+                }
+            },
+            FirstName = "FN",
+            LastName = "LN",
+            Salary = 0m
+        };
+        var employeeJson = JsonSerializer.Serialize(employee);
+
+        var response = await HttpClient.PostAsync("/api/v1/employees", new StringContent(employeeJson, Encoding.UTF8, "application/json"));
+
+        await response.ShouldReturn(HttpStatusCode.BadRequest);
     }
 }
 

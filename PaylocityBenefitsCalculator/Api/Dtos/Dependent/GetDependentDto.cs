@@ -15,4 +15,4 @@ public class GetDependentDto : DependentDtoBase
     public int Id { get; set; }
 }
 
-public class PostDependentDto : DependentDtoBase { }
+public class CreateDependentDto : DependentDtoBase { }
