@@ -47,6 +47,7 @@ public static class IocRegistrar
     private static void RegisterValidators(IServiceCollection services)
     {
         services
+            .AddTransient<IDependentValidator, DependentValidator>()
             .AddTransient<IEmployeeValidator, EmployeeValidator>()
             ;
     }

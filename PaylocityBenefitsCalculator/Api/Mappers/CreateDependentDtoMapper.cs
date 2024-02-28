@@ -16,7 +16,7 @@ public sealed class CreateDependentDtoMapper : EntityMapperBase<Dependent, Creat
         {
             DateOfBirth = dto.DateOfBirth,
             Employee = null,
-            EmployeeId = 0,
+            EmployeeId = dto.EmployeeId,
             FirstName = dto.FirstName,
             Id = 0,
             LastName = dto.LastName,

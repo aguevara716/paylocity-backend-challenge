@@ -37,8 +37,6 @@ public sealed class EmployeeDataService : IEmployeeDataService
     public ValidationResult<Employee> Create(Employee newEmployee)
     {
         var validationResult = _employeeValidator.Validate(newEmployee);
-        Console.WriteLine($"validation result: {validationResult.IsSuccess}, {validationResult.Error}");
-
         if (!validationResult.IsSuccess)
             return validationResult;
 

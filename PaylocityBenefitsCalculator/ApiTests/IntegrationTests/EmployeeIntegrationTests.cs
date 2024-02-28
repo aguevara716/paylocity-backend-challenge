@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Api.Dtos.Dependent;
 using Api.Dtos.Employee;
 using Api.Models;
+using ApiTests.Extensions;
 using Xunit;
 
 namespace ApiTests.IntegrationTests;
@@ -121,9 +120,8 @@ public class EmployeeIntegrationTests : IntegrationTest
             LastName = "LN",
             Salary = 0m
         };
-        var employeeJson = JsonSerializer.Serialize(employee);
 
-        var response = await HttpClient.PostAsync("/api/v1/employees", new StringContent(employeeJson, Encoding.UTF8, "application/json"));
+        var response = await HttpClient.PostAsync("/api/v1/employees", employee);
 
         await response.ShouldReturn(HttpStatusCode.OK);
     }
@@ -159,9 +157,8 @@ public class EmployeeIntegrationTests : IntegrationTest
             LastName = "LN",
             Salary = 0m
         };
-        var employeeJson = JsonSerializer.Serialize(employee);
 
-        var response = await HttpClient.PostAsync("/api/v1/employees", new StringContent(employeeJson, Encoding.UTF8, "application/json"));
+        var response = await HttpClient.PostAsync("/api/v1/employees", employee);
 
         await response.ShouldReturn(HttpStatusCode.BadRequest);
     }

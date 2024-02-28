@@ -15,4 +15,9 @@ public class GetDependentDto : DependentDtoBase
     public int Id { get; set; }
 }
 
-public class CreateDependentDto : DependentDtoBase { }
+// TODO you might need to include the employee ID when creating a new dependent, by itself?
+// or this might be handled by a PutDependentDto... hmmm
+public class CreateDependentDto : DependentDtoBase
+{
+    public int EmployeeId { get; set; }
+}

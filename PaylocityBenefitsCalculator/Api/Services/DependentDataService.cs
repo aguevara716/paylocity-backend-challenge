@@ -1,11 +1,13 @@
 ﻿using Api.Models;
 using Api.Repositories;
+using Api.Validators;
 
 namespace Api.Services;
 
 public interface IDependentDataService
 {
 	// create
+	ValidationResult<Dependent> Create(Dependent newDependent);
 
 	// read
 	Dependent[] Get();
@@ -20,18 +22,30 @@ public sealed class DependentDataService : IDependentDataService
 {
 	private readonly IDependentRepository _dependentRepository;
 	private readonly IEmployeeRepository _employeeRepository;
+	private readonly IDependentValidator _dependentValidator;
 
     public DependentDataService(IDependentRepository dependentRepository,
-                                IEmployeeRepository employeeRepository)
+                                IEmployeeRepository employeeRepository,
+                                IDependentValidator dependentValidator)
     {
         _dependentRepository = dependentRepository;
         _employeeRepository = employeeRepository;
+        _dependentValidator = dependentValidator;
     }
 
 	// create
+	public ValidationResult<Dependent> Create(Dependent newDependent)
+	{
+		var validationResult = _dependentValidator.Validate(newDependent);
+		if (!validationResult.IsSuccess)
+			return validationResult;
 
-	// read
-	public Dependent[] Get()
+		_dependentRepository.Create(validationResult.Data!);
+		return validationResult;
+	}
+
+    // read
+    public Dependent[] Get()
 	{
 		var dependents = _dependentRepository.Get().ToArray();
 		foreach (var dependent in dependents)
