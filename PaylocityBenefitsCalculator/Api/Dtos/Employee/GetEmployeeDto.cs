@@ -8,12 +8,15 @@ public abstract class EmployeeDtoBase : IDto
     public string? LastName { get; set; }
     public decimal Salary { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public ICollection<GetDependentDto> Dependents { get; set; } = new List<GetDependentDto>();
 }
 
 public class GetEmployeeDto : EmployeeDtoBase
 {
     public int Id { get; set; }
+    public ICollection<GetDependentDto> Dependents { get; set; } = new List<GetDependentDto>();
 }
 
-public class PostEmployeeDto : EmployeeDtoBase { }
+public class CreateEmployeeDto : EmployeeDtoBase
+{
+    public ICollection<CreateDependentDto> Dependents { get; set; } = new List<CreateDependentDto>();
+}
