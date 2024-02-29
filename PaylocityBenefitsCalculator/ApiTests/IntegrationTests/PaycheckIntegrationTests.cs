@@ -18,4 +18,3 @@ public sealed class PaycheckIntegrationTests : IntegrationTest
         await response.ShouldReturn(HttpStatusCode.OK);
     }
 }
-
