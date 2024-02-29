@@ -11,6 +11,7 @@ public static class IocRegistrar
     {
         RegisterDataAccessLayer(services);
         RegisterMappers(services);
+        RegisterPayrollServices(services);
         RegisterValidators(services);
     }
 
@@ -41,6 +42,24 @@ public static class IocRegistrar
             // Employee Mappers
             .AddTransient<IGetEmployeeDtoMapper, GetEmployeeDtoMapper>()
             .AddTransient<ICreateEmployeeDtoMapper, CreateEmployeeDtoMapper>()
+
+            // Paycheck Mappers
+            .AddTransient<IGetAdjustmentDtoMapper, GetAdjustmentDtoMapper>()
+            .AddTransient<IGetPaycheckDtoMapper, GetPaycheckDtoMapper>()
+            ;
+    }
+
+    private static void RegisterPayrollServices(IServiceCollection services)
+    {
+        services
+            .AddTransient<IPayrollAdjustmentCalculator[]>(sp => new IPayrollAdjustmentCalculator[]
+                {
+                    new EmployeeBenefitDeductionCalculator(),
+                    new DependentBenefitDeductionCalculator(),
+                    new HighSalaryDeductionCalculator(),
+                    new AgeDeductionCalculator()
+                })
+            .AddTransient<IPaycheckGenerator, PaycheckGenerator>()
             ;
     }
 

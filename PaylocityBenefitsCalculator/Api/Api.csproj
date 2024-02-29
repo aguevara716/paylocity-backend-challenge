@@ -21,6 +21,7 @@
     <None Remove="Mappers\" />
     <None Remove="Validators\" />
     <None Remove="Extensions\" />
+    <None Remove="Dtos\Paycheck\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Initialization\" />
@@ -29,5 +30,6 @@
     <Folder Include="Mappers\" />
     <Folder Include="Validators\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Dtos\Paycheck\" />
   </ItemGroup>
 </Project>
