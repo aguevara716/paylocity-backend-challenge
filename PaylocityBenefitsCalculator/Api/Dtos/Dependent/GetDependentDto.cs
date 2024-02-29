@@ -10,14 +10,14 @@ public abstract class DependentDtoBase : IDto
     public Relationship Relationship { get; set; }
 }
 
-public class GetDependentDto : DependentDtoBase
+public sealed class GetDependentDto : DependentDtoBase
 {
     public int Id { get; set; }
 }
 
 // TODO you might need to include the employee ID when creating a new dependent, by itself?
 // or this might be handled by a PutDependentDto... hmmm
-public class CreateDependentDto : DependentDtoBase
+public sealed class CreateDependentDto : DependentDtoBase
 {
     public int EmployeeId { get; set; }
 }

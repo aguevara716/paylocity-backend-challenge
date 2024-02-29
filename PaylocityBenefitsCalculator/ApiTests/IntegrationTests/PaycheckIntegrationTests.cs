@@ -4,7 +4,7 @@ using Xunit;
 
 namespace ApiTests.IntegrationTests;
 
-public class PaycheckIntegrationTests : IntegrationTest
+public sealed class PaycheckIntegrationTests : IntegrationTest
 {
     // GET
     [Fact]

@@ -1,6 +1,6 @@
 ﻿namespace Api.Models;
 
-public class Dependent : IEntity
+public sealed class Dependent : IEntity
 {
     public int Id { get; set; }
     public string? FirstName { get; set; }

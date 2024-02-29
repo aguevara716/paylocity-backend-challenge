@@ -1,6 +1,6 @@
 ﻿namespace Api.Models;
 
-public class ApiResponse<T>
+public sealed class ApiResponse<T>
 {
     public T? Data { get; set; }
     public bool Success { get; set; } = true;

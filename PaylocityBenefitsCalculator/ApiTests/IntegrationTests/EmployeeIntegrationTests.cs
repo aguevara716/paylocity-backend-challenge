@@ -11,7 +11,7 @@ using Xunit;
 
 namespace ApiTests.IntegrationTests;
 
-public class EmployeeIntegrationTests : IntegrationTest
+public sealed class EmployeeIntegrationTests : IntegrationTest
 {
     // GET
     [Fact]

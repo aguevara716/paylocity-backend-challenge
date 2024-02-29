@@ -8,7 +8,7 @@ using Xunit;
 
 namespace ApiTests.Services;
 
-public class PaycheckGeneratorTests
+public sealed class PaycheckGeneratorTests
 {
 	private readonly IEmployeeDataService _employeeDataService;
 	private readonly IPayrollAdjustmentCalculator _mockedPayrollAdjustmentCalculator;

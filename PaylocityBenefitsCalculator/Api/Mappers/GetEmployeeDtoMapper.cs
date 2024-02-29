@@ -8,7 +8,7 @@ public interface IGetEmployeeDtoMapper : IDtoMapper<GetEmployeeDto, Employee>
 
 }
 
-public class GetEmployeeDtoMapper : DtoMapperBase<GetEmployeeDto, Employee>, IGetEmployeeDtoMapper
+public sealed class GetEmployeeDtoMapper : DtoMapperBase<GetEmployeeDto, Employee>, IGetEmployeeDtoMapper
 {
     private readonly IGetDependentDtoMapper _dependentMapper;
 

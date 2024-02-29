@@ -1,6 +1,6 @@
 ﻿namespace Api.Models;
 
-public class Employee : IEntity
+public sealed class Employee : IEntity
 {
     public int Id { get; set; }
     public string? FirstName { get; set; }

@@ -8,7 +8,7 @@ public interface IGetAdjustmentDtoMapper : IDtoMapper<GetAdjustmentDto, Adjustme
 
 }
 
-public class GetAdjustmentDtoMapper : DtoMapperBase<GetAdjustmentDto, Adjustment>, IGetAdjustmentDtoMapper
+public sealed class GetAdjustmentDtoMapper : DtoMapperBase<GetAdjustmentDto, Adjustment>, IGetAdjustmentDtoMapper
 {
     public override GetAdjustmentDto Map(Adjustment entity)
     {

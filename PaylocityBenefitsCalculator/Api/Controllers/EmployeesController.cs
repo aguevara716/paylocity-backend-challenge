@@ -9,7 +9,7 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class EmployeesController : ControllerBase
+public sealed class EmployeesController : ControllerBase
 {
     private readonly IEmployeeDataService _employeeDataService;
     private readonly IGetEmployeeDtoMapper _getEmployeeDtoMapper;

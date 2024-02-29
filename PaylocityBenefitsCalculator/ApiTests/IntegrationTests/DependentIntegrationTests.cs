@@ -13,7 +13,7 @@ using Xunit;
 
 namespace ApiTests.IntegrationTests;
 
-public class DependentIntegrationTests : IntegrationTest
+public sealed class DependentIntegrationTests : IntegrationTest
 {
     // GET
     [Fact]

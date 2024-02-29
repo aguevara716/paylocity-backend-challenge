@@ -10,13 +10,13 @@ public abstract class EmployeeDtoBase : IDto
     public DateTime DateOfBirth { get; set; }
 }
 
-public class GetEmployeeDto : EmployeeDtoBase
+public sealed class GetEmployeeDto : EmployeeDtoBase
 {
     public int Id { get; set; }
     public ICollection<GetDependentDto> Dependents { get; set; } = new List<GetDependentDto>();
 }
 
-public class CreateEmployeeDto : EmployeeDtoBase
+public sealed class CreateEmployeeDto : EmployeeDtoBase
 {
     public ICollection<CreateDependentDto> Dependents { get; set; } = new List<CreateDependentDto>();
 }
