@@ -8,7 +8,7 @@ public interface IGetPaycheckDtoMapper : IDtoMapper<GetPaycheckDto, Paycheck>
 
 }
 
-public class GetPaycheckDtoMapper : DtoMapperBase<GetPaycheckDto, Paycheck>, IGetPaycheckDtoMapper
+public sealed class GetPaycheckDtoMapper : DtoMapperBase<GetPaycheckDto, Paycheck>, IGetPaycheckDtoMapper
 {
     private readonly IGetAdjustmentDtoMapper _adjustmentMapper;
     private readonly IGetEmployeeDtoMapper _employeeMapper;

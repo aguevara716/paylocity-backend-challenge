@@ -9,7 +9,7 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class PaychecksController : ControllerBase
+public sealed class PaychecksController : ControllerBase
 {
     private readonly IGetPaycheckDtoMapper _paycheckMapper;
     private readonly IPaycheckGenerator _paycheckGenerator;

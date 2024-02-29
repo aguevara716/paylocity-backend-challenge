@@ -100,4 +100,3 @@ public sealed class DataSeeder : IDataSeeder
         _context.Dependents.AddRange(dependents);
     }
 }
-

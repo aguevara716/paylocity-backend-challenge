@@ -9,7 +9,7 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class DependentsController : ControllerBase
+public sealed class DependentsController : ControllerBase
 {
     private readonly IDependentDataService _dependentDataService;
     private readonly IGetDependentDtoMapper _getDependentDtoMapper;
