@@ -7,4 +7,3 @@ public enum Relationship
     DomesticPartner,
     Child
 }
-

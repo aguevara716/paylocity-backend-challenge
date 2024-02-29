@@ -14,4 +14,22 @@
   <ItemGroup>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Initialization\" />
+    <None Remove="Services\" />
+    <None Remove="Repositories\" />
+    <None Remove="Mappers\" />
+    <None Remove="Validators\" />
+    <None Remove="Extensions\" />
+    <None Remove="Dtos\Paycheck\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Initialization\" />
+    <Folder Include="Services\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Mappers\" />
+    <Folder Include="Validators\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Dtos\Paycheck\" />
+  </ItemGroup>
 </Project>

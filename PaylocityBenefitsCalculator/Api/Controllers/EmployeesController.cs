@@ -1,6 +1,7 @@
-﻿using Api.Dtos.Dependent;
-using Api.Dtos.Employee;
+﻿using Api.Dtos.Employee;
+using Api.Mappers;
 using Api.Models;
+using Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -8,92 +9,55 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class EmployeesController : ControllerBase
+public sealed class EmployeesController : ControllerBase
 {
+    private readonly IEmployeeDataService _employeeDataService;
+    private readonly IGetEmployeeDtoMapper _getEmployeeDtoMapper;
+    private readonly ICreateEmployeeDtoMapper _createEmployeeDtoMapper;
+
+    public EmployeesController(IEmployeeDataService employeeDataService,
+                               IGetEmployeeDtoMapper getEmployeeDtoMapper,
+                               ICreateEmployeeDtoMapper createEmployeeDtoMapper)
+    {
+        _employeeDataService = employeeDataService;
+        _getEmployeeDtoMapper = getEmployeeDtoMapper;
+        _createEmployeeDtoMapper = createEmployeeDtoMapper;
+    }
+
+    // GET
     [SwaggerOperation(Summary = "Get employee by id")]
     [HttpGet("{id}")]
     public async Task<ActionResult<ApiResponse<GetEmployeeDto>>> Get(int id)
     {
-        throw new NotImplementedException();
+        var employee = _employeeDataService.Get(id);
+        if (employee is null)
+            return NotFound();
+
+        var getEmployeeDto = _getEmployeeDtoMapper.Map(employee);
+        return ApiResponse<GetEmployeeDto>.BuildSuccess(getEmployeeDto);
     }
 
     [SwaggerOperation(Summary = "Get all employees")]
     [HttpGet("")]
     public async Task<ActionResult<ApiResponse<List<GetEmployeeDto>>>> GetAll()
     {
-        //task: use a more realistic production approach
-        var employees = new List<GetEmployeeDto>
-        {
-            new()
-            {
-                Id = 1,
-                FirstName = "LeBron",
-                LastName = "James",
-                Salary = 75420.99m,
-                DateOfBirth = new DateTime(1984, 12, 30)
-            },
-            new()
-            {
-                Id = 2,
-                FirstName = "Ja",
-                LastName = "Morant",
-                Salary = 92365.22m,
-                DateOfBirth = new DateTime(1999, 8, 10),
-                Dependents = new List<GetDependentDto>
-                {
-                    new()
-                    {
-                        Id = 1,
-                        FirstName = "Spouse",
-                        LastName = "Morant",
-                        Relationship = Relationship.Spouse,
-                        DateOfBirth = new DateTime(1998, 3, 3)
-                    },
-                    new()
-                    {
-                        Id = 2,
-                        FirstName = "Child1",
-                        LastName = "Morant",
-                        Relationship = Relationship.Child,
-                        DateOfBirth = new DateTime(2020, 6, 23)
-                    },
-                    new()
-                    {
-                        Id = 3,
-                        FirstName = "Child2",
-                        LastName = "Morant",
-                        Relationship = Relationship.Child,
-                        DateOfBirth = new DateTime(2021, 5, 18)
-                    }
-                }
-            },
-            new()
-            {
-                Id = 3,
-                FirstName = "Michael",
-                LastName = "Jordan",
-                Salary = 143211.12m,
-                DateOfBirth = new DateTime(1963, 2, 17),
-                Dependents = new List<GetDependentDto>
-                {
-                    new()
-                    {
-                        Id = 4,
-                        FirstName = "DP",
-                        LastName = "Jordan",
-                        Relationship = Relationship.DomesticPartner,
-                        DateOfBirth = new DateTime(1974, 1, 2)
-                    }
-                }
-            }
-        };
-
-        var result = new ApiResponse<List<GetEmployeeDto>>
-        {
-            Data = employees,
-            Success = true
-        };
-
+        var employees = _employeeDataService.Get();
+        var employeeDtos = _getEmployeeDtoMapper.Map(employees).ToList();
+        var result = ApiResponse<List<GetEmployeeDto>>.BuildSuccess(employeeDtos);
         return result;
+    }
+
+    // POST
+    [SwaggerOperation(Summary = "Create a new employee")]
+    [HttpPost("")]
+    public async Task<ActionResult<ApiResponse<GetEmployeeDto>>> Post([FromBody] CreateEmployeeDto postEmployeeDto)
+    {
+        var employee = _createEmployeeDtoMapper.Map(postEmployeeDto);
+        var creationResult = _employeeDataService.Create(employee);
+        if (!creationResult.IsSuccess)
+            return BadRequest(creationResult.Error);
+
+        var getEmployeeDto = _getEmployeeDtoMapper.Map(creationResult.Data!);
+        return ApiResponse<GetEmployeeDto>.BuildSuccess(getEmployeeDto);
     }
 }
