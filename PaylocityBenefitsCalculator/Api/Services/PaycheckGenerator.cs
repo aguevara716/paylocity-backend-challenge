@@ -35,6 +35,22 @@ public sealed class PaycheckGenerator : IPaycheckGenerator
         return DateOnly.FromDateTime(checkDate);
     }
 
+    private IEnumerable<Adjustment> CalculateAdjustments(Employee employee)
+    {
+        foreach (var payrollAdjustmentCalculator in _payrollAdjustmentCalculators)
+        {
+            if (!payrollAdjustmentCalculator.CanExecute(employee))
+                continue;
+
+            var adjustment = new Adjustment
+            {
+                Amount = payrollAdjustmentCalculator.Execute(employee),
+                Name = payrollAdjustmentCalculator.Name
+            };
+            yield return adjustment;
+        }
+    }
+
     public ValidationResult<Paycheck> GeneratePaycheck(int checkId, int employeeId)
     {
         if (checkId < 0)
@@ -49,19 +65,7 @@ public sealed class PaycheckGenerator : IPaycheckGenerator
             return ValidationResult<Paycheck>.GetFailure($"Employee with ID {employeeId} not found");
 
         var basePay = employee.Salary / PayPeriodSettings.CHECKS_PER_YEAR;
-        var adjustments = new List<Adjustment>();
-        foreach (var payrollAdjustmentCalculator in _payrollAdjustmentCalculators)
-        {
-            if (!payrollAdjustmentCalculator.CanExecute(employee))
-                continue;
-
-            var adjustment = new Adjustment
-            {
-                Amount = payrollAdjustmentCalculator.Execute(employee),
-                Name = payrollAdjustmentCalculator.Name
-            };
-            adjustments.Add(adjustment);
-        }
+        var adjustments = CalculateAdjustments(employee);
 
         var paycheck = new Paycheck
         {
