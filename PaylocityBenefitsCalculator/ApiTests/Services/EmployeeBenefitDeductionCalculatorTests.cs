@@ -14,11 +14,11 @@ public sealed class EmployeeBenefitDeductionCalculatorTests
 	}
 
 	[Fact]
-	public void CanExecute_Should_AlwaysReturnTrue()
+	public void IsEligible_Should_AlwaysReturnTrue()
 	{
-		var canExecute = _employeeBenefitDeductionCalculator.CanExecute(null);
+		var isEligible = _employeeBenefitDeductionCalculator.IsEligible(null);
 
-		canExecute.Should().BeTrue();
+		isEligible.Should().BeTrue();
 	}
 
 	[Fact]

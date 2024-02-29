@@ -15,5 +15,5 @@ public sealed class HighSalaryDeductionCalculator : PayrollAdjustmentCalculatorB
         return costPerCheck;
     }
 
-    public override bool CanExecute(Employee employee) => employee.Salary >= 80_000m;
+    public override bool IsEligible(Employee employee) => employee.Salary >= 80_000m;
 }

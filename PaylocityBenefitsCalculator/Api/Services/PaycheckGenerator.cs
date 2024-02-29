@@ -39,7 +39,7 @@ public sealed class PaycheckGenerator : IPaycheckGenerator
     {
         foreach (var payrollAdjustmentCalculator in _payrollAdjustmentCalculators)
         {
-            if (!payrollAdjustmentCalculator.CanExecute(employee))
+            if (!payrollAdjustmentCalculator.IsEligible(employee))
                 continue;
 
             var adjustment = new Adjustment

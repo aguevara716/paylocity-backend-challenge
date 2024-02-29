@@ -13,5 +13,5 @@ public sealed class EmployeeBenefitDeductionCalculator : PayrollAdjustmentCalcul
         return -1 * charge;
     }
 
-    public override bool CanExecute(Employee employee) => true;
+    public override bool IsEligible(Employee employee) => true;
 }

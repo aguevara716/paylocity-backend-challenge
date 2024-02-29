@@ -50,13 +50,13 @@ public sealed class PaycheckGeneratorTests
             Amount = -100m
         };
         _employeeDataService.Get(0).ReturnsForAnyArgs(employee);
-        _mockedPayrollAdjustmentCalculator.CanExecute(null).ReturnsForAnyArgs(true);
+        _mockedPayrollAdjustmentCalculator.IsEligible(null).ReturnsForAnyArgs(true);
         _mockedPayrollAdjustmentCalculator.Execute(null).ReturnsForAnyArgs(mockAdjustment.Amount);
         _mockedPayrollAdjustmentCalculator.Name.Returns(mockAdjustment.Name);
 
         var paycheckResult = _paycheckGenerator.GeneratePaycheck(checkId, employee.Id);
 
-        _mockedPayrollAdjustmentCalculator.DidNotReceiveWithAnyArgs().CanExecute(null);
+        _mockedPayrollAdjustmentCalculator.DidNotReceiveWithAnyArgs().IsEligible(null);
         _mockedPayrollAdjustmentCalculator.DidNotReceiveWithAnyArgs().Execute(null);
         paycheckResult.Should().NotBeNull();
         paycheckResult.IsSuccess.Should().BeFalse();
@@ -74,13 +74,13 @@ public sealed class PaycheckGeneratorTests
             Amount = -100m
         };
         _employeeDataService.Get(0).ReturnsForAnyArgs(employee);
-        _mockedPayrollAdjustmentCalculator.CanExecute(null).ReturnsForAnyArgs(true);
+        _mockedPayrollAdjustmentCalculator.IsEligible(null).ReturnsForAnyArgs(true);
         _mockedPayrollAdjustmentCalculator.Execute(null).ReturnsForAnyArgs(mockAdjustment.Amount);
         _mockedPayrollAdjustmentCalculator.Name.Returns(mockAdjustment.Name);
 
         var paycheckResult = _paycheckGenerator.GeneratePaycheck(checkId, employee.Id);
 
-        _mockedPayrollAdjustmentCalculator.DidNotReceiveWithAnyArgs().CanExecute(null);
+        _mockedPayrollAdjustmentCalculator.DidNotReceiveWithAnyArgs().IsEligible(null);
         _mockedPayrollAdjustmentCalculator.DidNotReceiveWithAnyArgs().Execute(null);
         paycheckResult.Should().NotBeNull();
         paycheckResult.IsSuccess.Should().BeFalse();
@@ -98,13 +98,13 @@ public sealed class PaycheckGeneratorTests
             Amount = -100m
         };
         _employeeDataService.Get(0).ReturnsForAnyArgs(employee);
-        _mockedPayrollAdjustmentCalculator.CanExecute(null).ReturnsForAnyArgs(true);
+        _mockedPayrollAdjustmentCalculator.IsEligible(null).ReturnsForAnyArgs(true);
         _mockedPayrollAdjustmentCalculator.Execute(null).ReturnsForAnyArgs(mockAdjustment.Amount);
         _mockedPayrollAdjustmentCalculator.Name.Returns(mockAdjustment.Name);
 
         var paycheckResult = _paycheckGenerator.GeneratePaycheck(checkId, 100);
 
-        _mockedPayrollAdjustmentCalculator.DidNotReceiveWithAnyArgs().CanExecute(null);
+        _mockedPayrollAdjustmentCalculator.DidNotReceiveWithAnyArgs().IsEligible(null);
         _mockedPayrollAdjustmentCalculator.DidNotReceiveWithAnyArgs().Execute(null);
         paycheckResult.Should().NotBeNull();
         paycheckResult.IsSuccess.Should().BeFalse();
@@ -122,13 +122,13 @@ public sealed class PaycheckGeneratorTests
             Amount = -100m
         };
         _employeeDataService.Get(0).ReturnsForAnyArgs(employee);
-        _mockedPayrollAdjustmentCalculator.CanExecute(null).ReturnsForAnyArgs(false);
+        _mockedPayrollAdjustmentCalculator.IsEligible(null).ReturnsForAnyArgs(false);
         _mockedPayrollAdjustmentCalculator.Execute(null).ReturnsForAnyArgs(mockAdjustment.Amount);
         _mockedPayrollAdjustmentCalculator.Name.Returns(mockAdjustment.Name);
 
         var paycheckResult = _paycheckGenerator.GeneratePaycheck(checkId, employee.Id);
 
-        _mockedPayrollAdjustmentCalculator.Received().CanExecute(employee);
+        _mockedPayrollAdjustmentCalculator.Received().IsEligible(employee);
         _mockedPayrollAdjustmentCalculator.DidNotReceiveWithAnyArgs().Execute(null);
         paycheckResult.Should().NotBeNull();
         paycheckResult.IsSuccess.Should().BeTrue();
@@ -153,13 +153,13 @@ public sealed class PaycheckGeneratorTests
 			Amount = -100m
 		};
 		_employeeDataService.Get(0).ReturnsForAnyArgs(employee);
-		_mockedPayrollAdjustmentCalculator.CanExecute(null).ReturnsForAnyArgs(true);
+		_mockedPayrollAdjustmentCalculator.IsEligible(null).ReturnsForAnyArgs(true);
 		_mockedPayrollAdjustmentCalculator.Execute(null).ReturnsForAnyArgs(mockAdjustment.Amount);
 		_mockedPayrollAdjustmentCalculator.Name.Returns(mockAdjustment.Name);
 
 		var paycheckResult = _paycheckGenerator.GeneratePaycheck(checkId, employee.Id);
 
-		_mockedPayrollAdjustmentCalculator.Received().CanExecute(employee);
+		_mockedPayrollAdjustmentCalculator.Received().IsEligible(employee);
 		_mockedPayrollAdjustmentCalculator.Received().Execute(employee);
 		paycheckResult.Should().NotBeNull();
 		paycheckResult.IsSuccess.Should().BeTrue();

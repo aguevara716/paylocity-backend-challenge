@@ -15,5 +15,5 @@ public sealed class DependentBenefitDeductionCalculator : PayrollAdjustmentCalcu
         return totalCost;
     }
 
-    public override bool CanExecute(Employee employee) => employee?.Dependents?.Any() ?? false;
+    public override bool IsEligible(Employee employee) => employee?.Dependents?.Any() ?? false;
 }

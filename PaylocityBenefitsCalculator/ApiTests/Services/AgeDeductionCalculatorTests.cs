@@ -19,16 +19,16 @@ public sealed class AgeDeductionCalculatorTests
 	[InlineData(49, false)]
 	[InlineData(50, true)]
 	[InlineData(51, true)]
-	public void CanExecute_Should_ReturnFalseIfAgeThresholdNotMet(int employeeAge, bool expectedResponse)
+	public void IsEligible_Should_ReturnFalseIfAgeThresholdNotMet(int employeeAge, bool expectedResponse)
 	{
 		var employee = new Employee
 		{
 			DateOfBirth = DateTime.Today.AddYears(-1 * employeeAge)
 		};
 
-		var canExecute = _ageDeductionCalculator.CanExecute(employee);
+		var isEligible = _ageDeductionCalculator.IsEligible(employee);
 
-		canExecute.Should().Be(expectedResponse);
+		isEligible.Should().Be(expectedResponse);
 	}
 
 	[Theory]

@@ -36,7 +36,7 @@ public sealed class DependentBenefitDeductionCalculatorTests
 	[Theory]
 	[InlineData(0, false)]
 	[InlineData(10, true)]
-	public void CanExecute_Should_ReturnTrueIfAtLeastOneDependentExists(int dependentCount, bool expectedResult)
+	public void IsEligible_Should_ReturnTrueIfAtLeastOneDependentExists(int dependentCount, bool expectedResult)
 	{
 		var dependents = GetDependents(dependentCount);
 		var employee = new Employee
@@ -44,9 +44,9 @@ public sealed class DependentBenefitDeductionCalculatorTests
 			Dependents = new List<Dependent>(dependents)
 		};
 
-		var canExecute = _dependentBenefitDeductionCalculator.CanExecute(employee);
+		var isEligible = _dependentBenefitDeductionCalculator.IsEligible(employee);
 
-		canExecute.Should().Be(expectedResult);
+		isEligible.Should().Be(expectedResult);
 	}
 
 	[Theory]

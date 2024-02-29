@@ -13,7 +13,7 @@ public sealed class AgeDeductionCalculator : PayrollAdjustmentCalculatorBase
         return -1 * charge;
     }
 
-    public override bool CanExecute(Employee employee)
+    public override bool IsEligible(Employee employee)
     {
         var today = DateTime.Today;
         var age = today.Year - employee.DateOfBirth.Year;

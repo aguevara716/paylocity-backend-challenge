@@ -18,16 +18,16 @@ public sealed class HighSalaryDeductionCalculatorTests
     [InlineData(79_999, false)]
     [InlineData(80_000, true)]
     [InlineData(80_001, true)]
-    public void CanExecute_Should_ReturnTrueIfSalaryThresholdIsMet(decimal salary, bool expectedResult)
+    public void IsEligible_Should_ReturnTrueIfSalaryThresholdIsMet(decimal salary, bool expectedResult)
 	{
 		var employee = new Employee
 		{
 			Salary = salary
 		};
 
-		var canExecute = _highSalaryDeductionCalculator.CanExecute(employee);
+		var isEligible = _highSalaryDeductionCalculator.IsEligible(employee);
 
-		canExecute.Should().Be(expectedResult);
+		isEligible.Should().Be(expectedResult);
 	}
 
 	[Theory]
