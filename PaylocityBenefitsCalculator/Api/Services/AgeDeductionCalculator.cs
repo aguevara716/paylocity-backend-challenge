@@ -4,7 +4,7 @@ namespace Api.Services;
 
 public sealed class AgeDeductionCalculator : PayrollAdjustmentCalculatorBase
 {
-    public override string Name => throw new NotImplementedException();
+    public override string Name => "Age Deduction";
 
     protected override decimal InvokeCalculation(Employee employee)
     {
