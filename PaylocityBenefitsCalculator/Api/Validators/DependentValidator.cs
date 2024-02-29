@@ -5,7 +5,7 @@ namespace Api.Validators;
 
 public interface IDependentValidator
 {
-	ValidationResult<Dependent> Validate(Dependent dependent);
+    ValidationResult<Dependent> Validate(Dependent dependent);
 }
 
 public sealed class DependentValidator : IDependentValidator
